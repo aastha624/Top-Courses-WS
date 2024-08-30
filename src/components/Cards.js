@@ -5,11 +5,15 @@ import { useState } from 'react';
 const Cards = (props) => {
 
     let courses=props.courses;
+
     const [likedcourses,setlikedcourses]=useState([]); 
+    
+    let category = props.category;
 
     //returns you a list of all courses received from the api response 
    function getcourses() {
-        let allcourses = [];
+    if(category === "All") {
+    let allcourses = [];
         Object.values(courses).forEach(array=>{
             array.forEach(courseData =>{
                 allcourses.push(courseData);
@@ -17,10 +21,15 @@ const Cards = (props) => {
     } );
     return allcourses;
     }
+    else {
+        //main sirf specific categiry ka data array krunga  
+        return courses[category];      
+    }
+}
        
     
     return (
-        <div>
+        <div className="flex flex-wrap justify-center gap-4 mb-4" >
             {
                 //{/* render--sare data ne map kari and har aek data mate card banai devanu  */ }
           getcourses().map((course) => (
